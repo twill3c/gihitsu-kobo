@@ -1,0 +1,1 @@
+{"trained_at":"2026-09-03","tensorflow":"2.21.0","numpy":"2.5.2","epochs":30,"batch_size":128,"seed":42,"latent_dim":64,"epoch_time_mean_s":42.89,"g04_max_abs_err":1.6393410986470514e-06,"g04_d_max_abs_err":6.99107447828598e-06,"auc_trained":0.715264,"auc_untrained":0.535368,"auc_n":500,"snapshot_epochs":30}
