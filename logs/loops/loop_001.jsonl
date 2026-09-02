@@ -10,3 +10,6 @@
 {"v": "1.2", "ts": "2026-09-03T06:32:57+09:00", "project": "gihitsu-kobo", "loop_id": "loop_001", "event": "stage_end", "data": {"stage": 4, "stage_name": "実装", "result": "pass"}}
 {"v": "1.2", "ts": "2026-09-03T06:32:58+09:00", "project": "gihitsu-kobo", "loop_id": "loop_001", "event": "stage_end", "data": {"stage": 5, "stage_name": "検証", "result": "pass", "note": "npm 出荷物は未着工のため対象外(L0)。学習→書き出し→読み戻し→自己検算の全経路を 2 epoch で通した"}}
 {"v": "1.2", "ts": "2026-09-03T06:33:14+09:00", "project": "gihitsu-kobo", "loop_id": "loop_001", "event": "stage_end", "data": {"stage": 6, "stage_name": "文書同期", "result": "pass", "note": "SPEC F-02/G-01〜G-05/実測記録欄を較正結果で更新。text_hygiene 違反 0"}}
+{"v": "1.2", "ts": "2026-09-03T06:33:22+09:00", "project": "gihitsu-kobo", "loop_id": "loop_001", "event": "commit", "data": {"sha": "32cb615", "kind": "feat"}}
+{"v": "1.2", "ts": "2026-09-03T06:33:22+09:00", "project": "gihitsu-kobo", "loop_id": "loop_001", "event": "stage_end", "data": {"stage": 7, "stage_name": "完了", "result": "pass"}}
+{"v": "1.2", "ts": "2026-09-03T06:33:23+09:00", "project": "gihitsu-kobo", "loop_id": "loop_001", "event": "loop_end", "data": {"outcome": "success", "failure_count": 2, "summary": "L0 較正完了。TF 2.21.0(Win/py3.12)成立・12.8s/epoch・重み 2.8MB・二実装照合契約(読み戻し自己検算 <1e-12)成立。GEN-LOGIC ×2 → HC-139 起票。学習はビット非再現(oneDNN)だがオラクルに影響なし"}}

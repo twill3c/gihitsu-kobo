@@ -34,7 +34,7 @@ kuzushi-yomi(読む)⇔ 本作(産む)、senzai-niwa(VAE で産む)⇔ 本作(GA
 | N-01 | 静的エクスポート(`output: "export"`)。生成・採点は全てブラウザ内・外部通信なし | `next build` が out/ を生成 |
 | N-02 | `src/core` は純関数のみ。カバレッジ lines/functions/statements ≥ 90%, branches ≥ 85%(重み等のデータ資産は対象外) | eslint 境界規則 + vitest coverage 閾値 |
 | N-03 | TensorFlow は手元専用(training/)。Vercel へ渡るのは静的成果物(JSON・画像)のみ | リポジトリ構成 + out/ の内容 |
-| N-04 | 生成 1 回(generate forward)がポインタ操作に追随できる速さであること。閾値は L0 実測後に確定 | timing テスト |
+| N-04 | 生成 1 回(generate forward)がポインタ操作に追随できる速さ: 平均 < 60ms(実測 ≈ 15ms、discriminate ≈ 11ms — 2026-09-03。閾値は 4 倍マージン) | timing テスト(T-009) |
 | N-05 | 縁(非有限値入力・潜在範囲外)は正常系として仕様化 | core テスト |
 | N-06 | KMNIST は CC BY-SA 4.0(CODH「KMNIST データセット」)。NOTICE に出典を明記 | NOTICE ファイル |
 
@@ -50,7 +50,7 @@ kuzushi-yomi(読む)⇔ 本作(産む)、senzai-niwa(VAE で産む)⇔ 本作(GA
 | G-02 | Discriminator ロジット照合 | フィクスチャ 32 画像(実 16 + 生成 16)の TS discriminate ロジットが記録値と最大絶対誤差 < 1e-9 で一致(較正: Python 自己検算 4.6e-13 — 2026-09-03) |
 | G-03 | 形状・決定論 | 重み JSON の形状検査。同一 z → 深い等値 |
 | G-04 | BatchNorm 畳み込みの等価性 | 畳み込み+丸め後の numpy forward が TF 推論モード出力と一致: Generator < 5e-6・Discriminator ロジット < 1e-4(Python 側検査。較正実測: 6.2e-07 / 1.1e-05 — 2026-09-03。TF は float32・oneDNN のため床が高い) |
-| G-05 | 目利きの弁別力 | 学習済み Discriminator がテスト実画像と生成画像を分ける(AUC 閾値は本学習ループで較正して確定)。対照: 未学習重みでは分けられないこと |
+| G-05 | 目利きの弁別力 | meta.json の auc_trained > 0.65(実測 0.7153 — 2026-09-03・実/生成各 500)。対照: auc_untrained < 0.60(実測 0.5354)。均衡に達した GAN では D は完全には分けられないので 1.0 近傍を要求しない |
 
 **フィクスチャ導出の契約(HC-139)**: 入力(z・画像)を先に配布形(7 桁丸め)へ落とし、
 出力は書き出して読み戻した実物からのみ導出する。書き出し直後に「読み戻しだけからの再計算 =

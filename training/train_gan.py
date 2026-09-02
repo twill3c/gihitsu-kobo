@@ -270,6 +270,15 @@ def readback(path):
     return {k: (np.asarray(v, dtype=np.float64) if isinstance(v, list) else v) for k, v in raw.items()}
 
 
+def auc_real_vs_fake(d_wd, real_imgs784, fake_imgs784):
+    """Mann-Whitney U による AUC。real を陽性とする。同点は 0.5 扱い。"""
+    r = np.array([np_discriminate(d_wd, im) for im in real_imgs784])
+    f = np.array([np_discriminate(d_wd, im) for im in fake_imgs784])
+    gt = (r[:, None] > f[None, :]).sum()
+    eq = (r[:, None] == f[None, :]).sum()
+    return float((gt + 0.5 * eq) / (len(r) * len(f)))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, default=HERE / "data")
@@ -290,6 +299,9 @@ def main():
 
     rng = np.random.default_rng(SEED)
     grid_z = tf.constant(rng.standard_normal((64, LATENT_DIM)).astype(np.float32))
+
+    # G-05 の対照: 学習前(初期化直後)の Discriminator を配布形と同じ経路で確保する
+    d0_wd = round_weights(extract_discriminator(d))
 
     times = train(tf, g, d, train_imgs, args.epochs, args.batch_size, args.snapshots, grid_z)
     print(f"epoch time: mean {np.mean(times):.1f}s / total {sum(times):.1f}s", flush=True)
@@ -346,6 +358,34 @@ def main():
     d_self = float(np.max(np.abs(np.array([np_discriminate(d_rb, im) for im in fx_rb["d_inputs"]]) - fx_rb["d_logits"])))
     print(f"fixture self-check G max err = {g_self:.3e} / D max err = {d_self:.3e}", flush=True)
     assert g_self < 1e-12 and d_self < 1e-12, (g_self, d_self)
+
+    # --- G-05: 目利きの弁別力(配布形の重み・numpy forward で計測。real = テスト実画像)
+    n_auc = 500
+    auc_real = test_imgs[:n_auc].astype(np.float64).reshape(n_auc, 784) / 255.0
+    auc_z = rng.standard_normal((n_auc, LATENT_DIM))
+    auc_fake = np.stack([np_generate(g_rb, z) for z in auc_z])
+    auc_trained = auc_real_vs_fake(d_rb, auc_real, auc_fake)
+    auc_untrained = auc_real_vs_fake(d0_wd, auc_real, auc_fake)
+    print(f"G-05 AUC trained = {auc_trained:.4f} / untrained control = {auc_untrained:.4f}", flush=True)
+
+    meta = {
+        "trained_at": __import__("datetime").date.today().isoformat(),
+        "tensorflow": tf.__version__,
+        "numpy": np.__version__,
+        "epochs": args.epochs,
+        "batch_size": args.batch_size,
+        "seed": SEED,
+        "latent_dim": LATENT_DIM,
+        "epoch_time_mean_s": round(float(np.mean(times)), 2),
+        "g04_max_abs_err": g04_err,
+        "g04_d_max_abs_err": d_err,
+        "auc_trained": auc_trained,
+        "auc_untrained": auc_untrained,
+        "auc_n": n_auc,
+        "snapshot_epochs": args.epochs,
+    }
+    dump_json(meta, args.out / "meta.json")
+    print("meta.json written", flush=True)
 
 
 if __name__ == "__main__":
