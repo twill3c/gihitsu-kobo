@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+coverage/
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# 学習環境・データは git 管理外(成果物 JSON / PNG はコミットする)
+training/.venv/
+training/data/
+training/calib_out/
+training/calib_snapshots/
+training/__pycache__/
+__pycache__/

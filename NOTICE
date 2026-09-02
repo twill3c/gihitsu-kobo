@@ -1,0 +1,17 @@
+# NOTICE — gihitsu-kobo(偽筆工房)
+
+本プロジェクトのコードは MIT License(LICENSE 参照)。
+
+## 使用データセット
+
+- **KMNIST データセット**(CC BY-SA 4.0)
+  作成: 人文学オープンデータ共同利用センター(CODH / ROIS-DS)
+  出典: http://codh.rois.ac.jp/kmnist/
+  『KMNIST データセット』(CODH 作成)『日本古典籍くずし字データセット』(国文研ほか所蔵)を翻案
+  doi:10.20676/00000341
+  引用: Tarin Clanuwat et al. "Deep Learning for Classical Japanese Literature",
+  arXiv:1812.01718
+
+  学習(training/)にのみ使用。ブラウザへ配る成果物には、学習済み重み(JSON)・
+  生成標本画像・照合フィクスチャの一部としてテスト画像 16 枚分のピクセル値が含まれる。
+  これらの派生物にも CC BY-SA 4.0 の条件が及ぶ。
