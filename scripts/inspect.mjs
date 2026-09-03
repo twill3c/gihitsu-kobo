@@ -161,6 +161,32 @@ for (const [w, h] of WIDTHS) {
   if (!canvasBoxOk) fail("中央 canvas が可視域から外れている");
   else pass("中央 canvas は可視域内");
 
+  // --- F-08: 固定フッタの高さが body の逃げ(padding-bottom)に収まる(hanshoku の教訓)
+  const foot = await page.evaluate(() => {
+    const els = [...document.querySelectorAll("footer")];
+    // フッタは要素名でなく中身(MIT License と App Menu)で選ぶ(フリート規約検品の教訓)
+    const f = els.find((e) => e.innerText.includes("MIT License") && e.innerText.includes("App Menu"));
+    if (!f) return null;
+    const cs = getComputedStyle(f);
+    return {
+      fixed: cs.position === "fixed" && cs.bottom === "0px",
+      height: f.getBoundingClientRect().height,
+      escape: parseFloat(getComputedStyle(document.body).paddingBottom),
+      items: [...f.querySelectorAll("a")].length,
+      seps: (f.innerText.match(/・/g) ?? []).length,
+    };
+  });
+  if (!foot) fail("F-08: 規約フッタ(MIT License + App Menu)が見つからない");
+  else {
+    if (!foot.fixed) fail("F-08: フッタが position:fixed; bottom:0 でない");
+    if (foot.items !== 5) fail(`F-08: リンクが ${foot.items} 個(規約は 5)`);
+    if (foot.seps !== 4) fail(`F-08: 区切りの・が ${foot.seps} 個(規約は項目間 4)`);
+    if (foot.height > foot.escape) {
+      fail(`F-08: フッタ高 ${foot.height}px > 逃げ ${foot.escape}px(最下部本文が隠れる)`);
+    }
+    if (!problems.some((p) => p.startsWith("F-08"))) pass(`F-08: フッタ規約 OK(高 ${foot.height}px ≤ 逃げ ${foot.escape}px)`);
+  }
+
   if (consoleErrors.length) fail(`コンソールエラー: ${consoleErrors.join(" / ")}`);
   else pass("コンソールエラー 0");
   if (external.length) fail(`外部通信: ${external.join(" / ")}`);

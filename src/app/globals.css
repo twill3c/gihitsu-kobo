@@ -14,3 +14,31 @@ body {
   background: var(--paper);
   font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
 }
+
+/* fleet: fixed footer */
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9000;
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--paper);
+  border-top: 1px solid #c9bfa8;
+  font-size: 0.85rem;
+  color: #6b6250;
+  max-height: 30vh;
+  overflow-y: auto;
+}
+.footer a {
+  color: var(--ink);
+}
+body {
+  padding-bottom: 72px;
+}
+@media (max-width: 640px) {
+  body {
+    padding-bottom: 120px;
+  }
+}

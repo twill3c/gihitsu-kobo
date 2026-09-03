@@ -1,0 +1,9 @@
+# リモートビルドに不要なもの(学習環境・データ・ログ・検品痕)
+training/
+logs/
+.loop/
+coverage/
+harness/
+.github/
+.scaffold/
+.wt/

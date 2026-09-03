@@ -2,6 +2,7 @@ import { SnapshotPlayer } from "@/components/SnapshotPlayer";
 import { LatentWalk } from "@/components/LatentWalk";
 import { JudgePanel } from "@/components/JudgePanel";
 import { meta } from "@/lib/models";
+import { FOOTER_LINKS } from "@/lib/links";
 
 const section: React.CSSProperties = {
   background: "#fffdf7",
@@ -65,6 +66,18 @@ export default function Home() {
           <li>データは KMNIST(CODH・CC BY-SA 4.0)。派生する生成画像にも同条件が及ぶ。</li>
         </ul>
       </section>
+
+      <footer className="footer">
+        {FOOTER_LINKS.map((l, i) => (
+          <span key={l.href}>
+            {i > 0 && " ・ "}
+            <a href={l.href} target="_blank" rel="noreferrer">
+              {l.label}
+            </a>
+            {l.label === "MIT License" && " © 2026 坂田哲朗"}
+          </span>
+        ))}
+      </footer>
     </main>
   );
 }
