@@ -7,3 +7,8 @@
 {"v": "1.2", "ts": "2026-09-03T07:03:36+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "test_run", "data": {"command": "npm run verify", "passed": 5, "failed": 0, "note": "typecheck/lint/test(カバレッジ閾値込・19 テスト)/timing(計装なし)/build 全 pass"}}
 {"v": "1.2", "ts": "2026-09-03T07:03:36+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "stage_end", "data": {"stage": 4, "stage_name": "実装", "result": "pass"}}
 {"v": "1.2", "ts": "2026-09-03T07:03:36+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "stage_end", "data": {"stage": 5, "stage_name": "検証", "result": "pass", "note": "verify PASS(build 込み)。epoch_001/030 の PNG を目視 — 市松もや→筆致の変化を確認"}}
+{"v": "1.2", "ts": "2026-09-03T07:03:53+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "commit", "data": {"sha": "924094c", "kind": "data"}}
+{"v": "1.2", "ts": "2026-09-03T07:03:53+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "commit", "data": {"sha": "b7115d6", "kind": "feat"}}
+{"v": "1.2", "ts": "2026-09-03T07:03:53+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "stage_end", "data": {"stage": 6, "stage_name": "文書同期", "result": "pass", "note": "SPEC N-04/G-05 を実測で確定・TEST_SPEC T-009 更新・text_hygiene 違反 0"}}
+{"v": "1.2", "ts": "2026-09-03T07:03:54+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "stage_end", "data": {"stage": 7, "stage_name": "完了", "result": "pass"}}
+{"v": "1.2", "ts": "2026-09-03T07:03:54+09:00", "project": "gihitsu-kobo", "loop_id": "loop_002", "event": "loop_end", "data": {"outcome": "success", "failure_count": 1, "summary": "本学習 30 epoch 完走(21 分)・TS 二実装照合 G-01/G-02 < 1e-9 一発成立・G-03〜G-05/N-04/N-05 全ゲート緑・verify PASS。VERIF-FALSE 1 件(計装下の計時)は計時ステップ分離で解消"}}
