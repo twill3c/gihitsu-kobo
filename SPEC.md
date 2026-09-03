@@ -25,7 +25,7 @@ kuzushi-yomi(読む)⇔ 本作(産む)、senzai-niwa(VAE で産む)⇔ 本作(GA
 | F-05 | 潜在の散歩: 潜在 2 点間の線形補間で生成文字が連続変形するアニメ。点は振り直し可能 | must |
 | F-06 | 目利きの採点: 生成画像と本物の KMNIST 標本を並べ、Discriminator のロジット(=目利きの見立て)をその場で表示 | must |
 | F-07 | 通し勝負: 本物/偽物をまぜた札を目利きに通し、見抜いた率・騙された率を集計表示 | should(後続ループ) |
-| F-08 | フッタ: MIT License・GitHub・操作説明・設計図・App Menu の 5 リンク(フリート共通規約) | must(公開ループ) |
+| F-08 | フッタ: MIT License・GitHub・歩き方・設計図・App Menu の 5 リンク(フリート共通規約)。実装済み — 本番 gihitsu-kobo.vercel.app 稼働・app-menu cat12 掲載(実測 2026-09-03) | must(公開ループ) |
 
 ## 3. 非機能要求
 
